@@ -1,12 +1,3 @@
-<?php
-
-require '../utils/AuthMiddleware.php';
-
-// Middleware (Auth/login)
-AuthMiddleware::check();
-
-?>
-
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -15,15 +6,15 @@ AuthMiddleware::check();
     <meta name="author" content="">
     <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
 
-    <title>Dashboard app</title>
+    <title>Management Barang</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/dashboard/">
 
     <!-- script css bootstrap -->
-    <link rel="stylesheet" href="../public/bootstrap-5.3.2-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../public/bootstrap-5.3.2-dist/css/bootstrap.min.css">
 
     <!-- css dashboard style -->
-    <link rel="stylesheet" href="../public/css/dashboard.css">
+    <link rel="stylesheet" href="../../public/css/dashboard.css">
 
     <!-- Custom styles for this template -->
     <link href="dashboard.css" rel="stylesheet">
@@ -52,25 +43,25 @@ AuthMiddleware::check();
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="dashboard.php">
+                <a class="nav-link" href="../dashboard.php">
                   <span data-feather="file"></span>
                   Daftar Barang
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="src/TambahBarang.php">
+                <a class="nav-link" href="TambahBarang.php">
                   <span data-feather="bar-chart-2"></span>
                   Tambah Barang
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="src/UsersList.php">
+                <a class="nav-link" href="UsersList.php">
                   <span data-feather="users"></span>
                   Users
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="src/Management.php">
+                <a class="nav-link" href="Management.php">
                   <span data-feather="layers"></span>
                   Management
                 </a>
@@ -97,7 +88,7 @@ AuthMiddleware::check();
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="../contact.php">
+                <a class="nav-link" href="../../contact.php">
                   <span data-feather="file-text"></span>
                   Contact (お問い合わせページ)
                 </a>
@@ -126,7 +117,8 @@ AuthMiddleware::check();
                   <td>ipsum</td>
 
                   <td>
-                    <a href="../app/src/DetailBarang.php" class="btn btn-info" style="border-radius: 3px; color: white;">Detail</a>
+                    <a href="EditBarang.php" class="btn btn-warning" style="border-radius: 3px; color: white;">Edit</a>
+                    <a href="" onclick="alert('Data is Delete Forever');" class="btn btn-danger" style="border-radius: 3px; color: white;">Delete</a>
                   </td>
                 </tr>
               </tbody>

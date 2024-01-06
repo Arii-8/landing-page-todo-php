@@ -1,0 +1,16 @@
+.auth_input {
+    margin-left: 30%;
+    max-width: 40%;
+}
+
+.line {
+    margin-left: 20%;
+    max-width: 60%;
+}
+
+@media screen and (max-width: 576px){
+    .auth_input {
+        margin-left: 10%;
+        max-width: 80%;
+    }    
+}

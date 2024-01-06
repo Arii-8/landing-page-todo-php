@@ -7,6 +7,7 @@
 
     <!-- script css -->
     <link rel="stylesheet" href="public/css/style.css">
+    <link rel="stylesheet" href="public/css/contact.css">
 
     <!-- script css bootstrap -->
     <link rel="stylesheet" href="public/bootstrap-5.3.2-dist/css/bootstrap.min.css">
@@ -14,6 +15,7 @@
 <body>
 
     <!-- start code -->
+    <!-- メインのランディング ページのプロジェクトを始めます。 -->
     <!-- ========== -->
 
     <div class="container-fluid" style="padding: 0;">
@@ -36,7 +38,7 @@
                         <a class="nav-link active" aria-current="page" href="index.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
+                        <a class="nav-link" href="contact.php">Contact</a>
                     </li>
                     </ul>
                 </div>
@@ -91,7 +93,7 @@
                 <img class="featurette-image img-fluid mx-auto" src="public/img/bdg-1.jpg" alt="Generic placeholder image">
             </div>
           <div class="col-md-7 order-md-2">
-            <h2 class="featurette-heading">Bandung Indonesia. <span class="text-muted">View city of hometown.</span></h2>
+            <h3 class="featurette-heading">Bandung Indonesia. <span class="text-muted">View city of hometown.</span></h3>
             <p class="text-muted" style="font-weight: 300; font-size: 1.1em; font-color: #5a5a5a; font-family: arial;">
                 Di sudut kota Bandung, Indonesia, hidup seorang pemuda bernama Arizal, 
                 seorang programmer junior yang mahir dalam PHP dan Node.js. Arizal tumbuh di kota 
@@ -107,11 +109,28 @@
                 <a href="#" class="btn btn-secondary" style="border-radius: 3px; color: white;">View simple app</a>
           </div>
         </div>
+
+        <br><br>
+
+        <div class="row featurette"  style="margin: 10px;">
+          <div class="col-md-6">
+            <h3 class="featurette-heading">Heading to japan as backend engineer.<span class="text-muted" style="font-size: 0.6em; font-weight: bold;">みなさん、こんにちは。自己紹介をさせてください。私の名前はアリザルです。私はインドネシアのバンドン出身です。 </span></h3>
+            <p style="font-family: arial; font-weight: bold; font-size: 0.8em;">
+            私が日本に行ったのは雪と桜を見るためで、アニメが大好きなので、それがきっかけで日本の文化と生活が大好きになりました。
+            漢字を覚えるのがまだ苦手で、英語はまだ受け身であまり上手ではありませんが、読み書きはできますが、日本語は流暢に話せます。
+            バックエンド ソフトウェアエンジニアとして働きたいです。まだジュニアレベルですが、これからも頑張ります。したがって、よろしくお願いします。
+            <br> <br> Link. <a href="https://github.com/Arii-8/">https://github.com/Arii-8/</a>
+            </p>
+            <a href="contact.php" class="btn btn-primary" style="border-radius: 3px; color: white; margin-bottom: 30px;">View contact</a>
+          </div>
+          <div class="col-md-5">
+            <img class="featurette-image img-fluid mx-auto w-20" src="public/img/office.jpg" alt="Generic placeholder image">
+          </div>
+        </div>
         
 
         <hr class="featurette-divider">
         <!-- end content -->
-
         
 
         <hr class="featurette-divider">

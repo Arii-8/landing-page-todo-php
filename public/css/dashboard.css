@@ -1,0 +1,8 @@
+
+/* css dashboard app */
+
+@media screen and (max-width: 576px){
+    .dash-nav {
+        font-size: 0.8em;
+    }
+}
