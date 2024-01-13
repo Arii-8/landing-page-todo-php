@@ -51,7 +51,7 @@
           <p style="font-weight: bold; margin-bottom: 0px;">App crud 商品の管理 (しょうひんのかんり)</p>
           <p style="font-weight: bold;">浮かび上がるラベルを使用してフォームコントロールを構築します。<br> <span style="color: red;">:placeholder-shown pseudo-element.</span></p>
           <hr class="line"/>
-        <form action="" method="post" enctype= multipart/form-data style="margin-top: 40px;">
+        <form action="auth/RegisterProcess.php" method="post" enctype= multipart/form-data style="margin-top: 40px;">
 
         <div class="form-label-group auth_input">
           <label for="email_user">Gmail</label>

@@ -10,36 +10,60 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
     $nama_user = $_POST['nama_user'];
     $pass_user = md5($_POST['pass_user']);
 
-    $pr_nama_user = mysqli_real_escape_string($connect, $nama_user);
-    $pr_pass_user = mysqli_real_escape_string($connect, $pass_user);
-
     // select data from database
-    $sql = "SELECT * FROM auth_users WHERE nama_user = '$pr_nama_user' AND pass_user = '$pr_pass_user'";
+    $sql = "SELECT * FROM auth_users WHERE nama_user='$nama_user' AND pass_user='$pass_user'";
     $query = mysqli_query($connect, $sql);
-
-    // check query
-    if(!$query)
-    {
-        print "Query failed : " . mysql_error($connect);
+    
+    if(!$query){
+        print "Error: " . mysqli_error($connect);
+        die();
     }
-
+    
     // check auth account user
-    if($query->num_rows > 0)
+    /* 
+     * validasi login jika form login kosong 
+     * ログインフォームが空の場合のログイン検証
+     * (ログインフォームがからのばあいのログインけんしょう)
+     */
+    if(empty($nama_user) || empty($pass_user))
     {
-        ?> 
+        ?>
+        <p style="color:red;">Form login harus diisi!</p>
         <script>
-            alert('いらっしゃいませ!');
-            windows.location = "../dashboard.php";
-        </script>
+            alert('Form login harus diisi!');
+            window.location = "../login.php";
+            </script>
         <?php
     }
-    else {
-        ?>
-        <p style="color:red;">Username / Password Salah!</p>
-        <script>
-            alert('いらっしゃいませ!');
-            windows.location = "../login.php";
-        </script>
-        <?php
+    
+    // jika validasi user
+    if(mysqli_num_rows($query) > 0)
+    {
+        // check validasi password
+        $user = mysqli_fetch_assoc($query);
+
+        // membuat session
+        session_start();
+        $_SESSION['id_user'] = $user['id_user'];
+        ?> 
+            <script>
+                alert('いらっしゃいませ!');
+                window.location = "../dashboard.php";
+            </script>
+            <?php
+            exit();
+        }    
+        else {
+            ?>
+            <p style="color:red;">Username / Password Salah!</p>
+            <script>
+                alert('Username / Password Salah!');
+                window.location = "../login.php";
+            </script>
+            <?php
+        }
+
+    if(is_array($user) || is_object($user) || is_string($user)){
+        
     }
 }

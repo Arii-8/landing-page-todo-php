@@ -1,21 +1,19 @@
 <?php
 
-// import configs database
-require '../configs/config.php';
-
-session_start();
+// middleware auth login
+namespace AuthMiddleware;
+require_once '../../configs/config.php'; // memanggil database
 
 // Auth Middleware
 class AuthMiddleware {
     public static function check(){
-        if(!isset($_SESSION['id_user']))
+        if(!isset($_SESSION['user']))
         {
             ?>
             <script>
-                window.location = '../app/login.php';
+                window.location = '../login.php';
             </script>
             <?php
-            exit();
         }
     }
 }

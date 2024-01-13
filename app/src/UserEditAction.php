@@ -24,51 +24,38 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
     }
 
     // take data from user
+    $id_user = $_POST['id_user'];
     $nama_user = $_POST['nama_user'];
     $no_hp_user = $_POST['no_hp_user'];
     $email_user = $_POST['email_user'];
-    $pass_user = md5($_POST['pass_user']);
     $status = $_POST['status'];
 
+    $pr_id_user = mysqli_real_escape_string($connect, $id_user);
     $pr_nama_user = mysqli_real_escape_string($connect, $nama_user);
     $pr_no_hp_user = mysqli_real_escape_string($connect, $no_hp_user);
     $pr_email_user = mysqli_real_escape_string($connect, $email_user);
-    $pr_pass_user = mysqli_real_escape_string($connect, $pass_user);
     $pr_status = mysqli_real_escape_string($connect, $status);
 
     // validation register
-    if(empty($pr_nama_user) || empty($pr_no_hp_user) || empty($pr_email_user) || empty($pr_pass_user))
+    $sql = "UPDATE auth_users SET nama_user = '$pr_nama_user', no_hp_user = '$pr_no_hp_user', email_user = '$pr_email_user', status='$pr_status' WHERE id_user = '$pr_id_user'";
+    $query = mysqli_query($connect, $sql);
+
+    if($query)
     {
-        ?>
-        <p style="color:red;">Form register harus diisi!</p>
+    ?>
         <script>
-            alert('Form register harus diisi!');
-            window.location = "../register.php";
+            alert('Update berhasil!');
+            window.location = "UsersList.php";
         </script>
         <?php
     }
     else {
-        $sql = "INSERT INTO auth_users (id_user, nama_user, no_hp_user, email_user, pass_user, status) VALUES ('$nextId', '$pr_nama_user', '$pr_no_hp_user', '$pr_email_user', '$pr_pass_user', '$pr_status')";
-        $query = mysqli_query($connect, $sql);
-
-        if($query)
-        {
-            ?>
-            <script>
-                alert('Register Berhasil!');
-                window.location = "../login.php";
-            </script>
-            <?php
-        }
-        else {
-            ?>
-            <p style="color: red;">Register gagal!</p>
-            <script>
-                alert('Register gagal, silahkan coba lagi!');
-                window.location = "../register.php";
-            </script>
-            <?php
-        }
-        mysqli_close($connect);
+        ?>
+        <script>
+            alert('Update gagal, silahkan coba lagi!');
+            window.location = "UsersDetail.php";
+        </script>
+        <?php
     }
+    mysqli_close($connect);
 }

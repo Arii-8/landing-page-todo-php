@@ -1,3 +1,16 @@
+
+<?php 
+
+use AuthMiddleware\AuthMiddleware;
+require_once '../../utils/AuthMiddleware.php';
+require_once '../../configs/config.php';
+
+
+// Auth Login middleware
+// AuthMiddleware::check();
+
+?>
+
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -26,7 +39,7 @@
       <br/>
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-          <a class="nav-link" href="#">Sign out</a>
+          <a class="nav-link" href="../logout.php">Logout</a>
         </li>
       </ul>
     </nav>
@@ -97,6 +110,22 @@
           </div>
         </nav>
 
+        <!-- script php -->
+        <?php 
+        
+        $sql = "SELECT * FROM auth_users";
+        $query = mysqli_query($connect, $sql);
+
+        if($query)
+        {
+          while($row = mysqli_fetch_array($query)){
+            $dataArray[] = $row;
+          }
+        }
+
+        ?>
+        <!-- end of php -->
+
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
           <h2>Daftar Pengguna (ユーザーリスト)</h2>
           <hr>
@@ -105,22 +134,32 @@
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>Nama Barang</th>
-                  <th>Kategori Barang</th>
+                  <th>ID_User</th>
+                  <th>User</th>
+                  <th>Phone</th>
+                  <th>Email</th>
+                  <th>Status</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
+                <?php $i = 1; ?>
+                <?php if(is_array($dataArray) | is_object($dataArray) | is_string($dataArray)){?>
+                <?php foreach($dataArray as $dataUser) : ?>
                 <tr>
-                  <td>1,001</td>
-                  <td>Lorem</td>
-                  <td>ipsum</td>
+                  <td><?php print $i++; ?></td>
+                  <td><?php print $dataUser['id_user']; ?></td>
+                  <td><?php print $dataUser['nama_user']; ?></td>
+                  <td><?php print $dataUser['no_hp_user']; ?></td>
+                  <td><?php print $dataUser['email_user']; ?></td>
+                  <td><?php print $dataUser['status']; ?></td>
 
                   <td>
-                    <a href="UsersDetail.php" class="btn btn-primary" style="border-radius: 3px; color: white;">Detail</a>
-                    <a href="UsersDelete.php" class="btn btn-danger" style="border-radius: 3px; color: white;">Delete</a>
+                    <a href="UsersDetail.php?id=<?php print $dataUser['id_user']; ?>" class="btn btn-primary" style="border-radius: 3px; color: white;">Detail</a>
+                    <a href="UsersDelete.php?id=<?php print $dataUser['id_user']; ?>" class="btn btn-danger" style="border-radius: 3px; color: white;">Delete</a>
                   </td>
                 </tr>
+                <?php endforeach; }?>
               </tbody>
             </table>
           </div>
