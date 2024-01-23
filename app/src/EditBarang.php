@@ -97,24 +97,49 @@
           </div>
         </nav>
 
+        <!-- script php -->
+        <?php 
+        
+        require "../../configs/config.php";
+
+        if($_SERVER['REQUEST_METHOD'] === 'GET')
+          {
+              // ambil id dari database
+              $id = $_GET['id'];
+              $sql = "SELECT * FROM barang WHERE id_barang = '$id'";
+
+              // qurty data
+              $query = mysqli_query($connect, $sql);
+              $data = mysqli_fetch_assoc($query);
+          }
+        ?>
+        <!-- end of script php -->
+
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
           <h2>Edit Barang (品の変化)</h2>
           <hr>
           <div class="table-responsive">
             
-          <form action="" method="post" id="text-editor" enctype="multipart/form-data">
+          <form action="ProcessEditBarang.php" method="post" id="text-editor" enctype="multipart/form-data">
+          <input type="hidden" name="id_barang" value="<?php echo $data['id_barang']; ?>">
             <div class="form-group" style="margin-top: 20px;">
                 <label for="nama_barang">Nama Barang</label>
-                <input type="text" name="nama_barang" class="form-control" placeholder="Nama Barang" required>
+                <input type="text" name="nama_barang" class="form-control" placeholder="Nama Barang" value="<?php print $data['nama_barang']; ?>" required>
             </div>
             <div class="form-group" style="margin-top: 20px;">
                 <label for="kategori_barang">Kategori Barang</label>
-                <input type="text" name="kategori_barang" class="form-control" placeholder="Kategori Barang" required>
+                <input type="text" name="kategori_barang" class="form-control" placeholder="Kategori Barang" value="<?php print $data['kategori_barang']; ?>" required>
             </div>
             <div class="form-group" style="margin-top: 20px;">
                 <label for="desc_barang">Descripsi Barang</label>
-                <input type="text" name="desc_barang" class="form-control" placeholder="Descripsi Barang" required>
+                <input type="text" name="desc_barang" class="form-control" placeholder="Descripsi Barang" value="<?php print $data['desc_barang']; ?>" required>
             </div>
+
+            <div class="form-group" style="margin-top: 20px;">
+                <label for="status">Status Barang</label>
+                <input type="text" name="status" class="form-control" placeholder="Status Barang" value="<?php print $data['status']; ?>" required>
+            </div>
+
             <div class="form-group" style="margin-top: 20px;">
                 <button type="submit" name="status" value="published" class="btn btn-primary" style="border-radius: 3px; color: white;">Edit</button>
                 <button type="submit" name="status" value="draft" class="btn btn-secondary" style="border-radius: 3px; color: white;">Simpan Di Draft</button>

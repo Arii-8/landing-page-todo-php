@@ -106,7 +106,7 @@
                 kelahirannya dengan kecakapan teknisnya.
             </p> 
                 <a href="about_bandung.php" class="btn btn-primary" style="border-radius: 3px; color: white;">View more</a>
-                <a href="#" class="btn btn-secondary" style="border-radius: 3px; color: white;">View simple app</a>
+                <a href="app/login.php" class="btn btn-secondary" style="border-radius: 3px; color: white;">View simple app</a>
           </div>
         </div>
 

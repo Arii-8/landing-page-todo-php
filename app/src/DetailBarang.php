@@ -105,13 +105,64 @@
           <div class="col-md-6">
           <div class="card flex-md-row mb-4 box-shadow h-md-250">
             <div class="card-body d-flex flex-column align-items-start">
-              <strong class="d-inline-block mb-2 text-primary">World</strong>
+              <strong class="d-inline-block mb-2 text-primary">Barang (品)</strong>
               <h3 class="mb-0">
-                <a class="text-dark" href="#">Featured post</a>
+                <a class="text-dark" href="#">Post barang</a>
               </h3>
-              <div class="mb-1 text-muted">Nov 12</div>
-              <p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
-              <a href="#">Continue reading</a>
+              <div class="mb-1 text-muted"><?php print Date("M"); ?></div>
+              <p class="card-text mb-auto">Detail informasi barang.</p>
+
+
+              <!-- script php -->
+              <?php 
+              
+              require('../../configs/config.php');
+
+              if($_SERVER['REQUEST_METHOD'] === 'GET')
+              {
+                // ambil id dari database
+                $id = $_GET['id'];
+                $sql = "SELECT * FROM barang WHERE id_barang = '$id'";
+
+                // qurty data
+                $query = mysqli_query($connect, $sql);
+                $dataUser = mysqli_fetch_assoc($query);
+              }
+              ?>
+              <!-- end of scipt php -->
+
+
+              <form action="ProcessEditBarang.php" method="post" id="text-editor" enctype="multipart/form-data">
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label for="id_barang">ID barang: </label>
+                        <br>
+                        <b><?php print($dataUser['id_barang']) ? $dataUser['id_barang'] : print 'error'; ?></b>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label for="nama_user">Nama barang: </label>
+                        <br>
+                        <b><?php print($dataUser['nama_barang']) ? $dataUser['nama_barang'] : print 'error'; ?></b>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label for="no_hp_user">Kategori barang: </label>
+                        <br>
+                        <b><?php print($dataUser['kategori_barang']) ? $dataUser['kategori_barang'] : print 'error'; ?></b>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label for="desc_barang">Description barang: </label>
+                        <p><b><?php print($dataUser['desc_barang']) ? $dataUser['desc_barang'] : print 'error'; ?></b></p>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label for="status">Status barang: </label>
+                        <br>
+                        <b><?php print($dataUser['status']) ? $dataUser['status'] : print 'error'; ?></b>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <a href="../dashboard.php" class="btn btn-secondary" style="border-radius: 3px; color: white;">Back to dashboard</a>
+                    </div>
+                </form>
+                <!-- secondary -->
+            
             </div>
             <!-- <img class="card-img-right flex-auto d-none d-md-block" data-src="holder.js/200x250?theme=thumb" alt="Card image cap"> -->
           </div>

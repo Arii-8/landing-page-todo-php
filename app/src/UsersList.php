@@ -155,7 +155,7 @@ require_once '../../configs/config.php';
                   <td><?php print $dataUser['status']; ?></td>
 
                   <td>
-                    <a href="UsersDetail.php?id=<?php print $dataUser['id_user']; ?>" class="btn btn-primary" style="border-radius: 3px; color: white;">Detail</a>
+                    <a href="UsersDetail.php?id=<?php print $dataUser['id_user']; ?>" class="btn btn-info" style="border-radius: 3px; color: white;">Detail</a>
                     <a href="UsersDelete.php?id=<?php print $dataUser['id_user']; ?>" class="btn btn-danger" onclick="return confirm('Hapus data ini?')" style="border-radius: 3px; color: white;">Delete</a>
                   </td>
                 </tr>

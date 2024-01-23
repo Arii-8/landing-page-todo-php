@@ -39,153 +39,64 @@ class ModelBarang {
 
     public function create($dataname)
     {
-        $data = new ModelBarang($this->db_hostname, $this->db_username, $this->db_password, $this->db_database);
+        $query = "SELECT id_barang FROM barang ORDER BY id_barang DESC LIMIT 1";
+        $statement = $this->connect->query($query);
+        $row = $statement->fetch(PDO::FETCH_ASSOC);
+        $nextID = ($row) ? 'IDBRG' . ((int)substr($row['id_barang'], 5) + 1) : 'IDBRG1';
 
-        // id barang
-        $nextIDBarang = "SELECT id_barang FROM barang ORDER BY id_barang DESC LIMIT 1";
-        $result = mysqli_query($data, $nextIDBarang);
-        if($result)
-        {
-            $row = mysqli_fetch_assoc($result);
-            if($row)
-            {
-                $lasID  = $row['id_barang'];
-                $nextID = 'IDBRG' . ((int)substr($lasID, 5) + 1);
-            }
-            else {
-                $nextID = 'IDBRG1';
-            }
-        }
-        else {
-            $nextID = 'IDBRG1';
-        }
-
-        $query = "INSERT INTO barang VALUES ('$nextID', :nama_barang, :kategori_barang, :desc_barang, :status)";
+        $query = "INSERT INTO barang (id_barang, nama_barang, kategori_barang, desc_barang, status) 
+                  VALUES (:id_barang, :nama_barang, :kategori_barang, :desc_barang, :status)";
         $statement = $this->connect->prepare($query);
 
-        $statement->bindParam($nextID, $dataname['id_barang']);
+        $statement->bindParam(':id_barang', $nextID);
         $statement->bindParam(':nama_barang', $dataname['nama_barang']);
         $statement->bindParam(':kategori_barang', $dataname['kategori_barang']);
         $statement->bindParam(':desc_barang', $dataname['desc_barang']);
         $statement->bindParam(':status', $dataname['status']);
 
-        if($statement->execute())
+        if ($statement->execute())
         {
             return $this->connect->lastInsertId();
-        }
-        else {
+        } else {
+            var_dump($statement->errorInfo());
             return false;
         }
     }
 
     public function update($dataname)
     {
-        $data = new ModelBarang($this->db_hostname, $this->db_username, $this->db_password, $this->db_database);
-
-        // id barang
-        $nextIDBarang = "SELECT id_barang FROM barang ORDER BY id_barang DESC LIMIT 1";
-        $result = mysqli_query($data, $nextIDBarang);
-        if($result)
-        {
-            $row = mysqli_fetch_assoc($result);
-            if($row)
-            {
-                $lasID  = $row['id_barang'];
-                $nextID = 'IDBRG' . ((int)substr($lasID, 5) + 1);
-            }
-            else {
-                $nextID = 'IDBRG1';
-            }
-        }
-        else {
-            $nextID = 'IDBRG1';
-        }
-
         $query = "UPDATE barang SET nama_barang = :nama_barang, kategori_barang = :kategori_barang, 
-        desc_barang = :desc_barang, status = :status WHERE id_barang = '$nextID'";
+            desc_barang = :desc_barang, status = :status WHERE id_barang = :id_barang";
 
         $statement = $this->connect->prepare($query);
 
-        $statement->bindParam($nextID, $dataname['id_barang']);
+        $statement->bindParam(':id_barang', $dataname['id_barang']);
         $statement->bindParam(':nama_barang', $dataname['nama_barang']);
         $statement->bindParam(':kategori_barang', $dataname['kategori_barang']);
         $statement->bindParam(':desc_barang', $dataname['desc_barang']);
         $statement->bindParam(':status', $dataname['status']);
 
-        if($statement->execute())
-        {
+        if ($statement->execute()) {
             return true;
-        }
-        else {
+        } else {
+            var_dump($statement->errorInfo());
             return false;
         }
     }
-    
-    public function getDataById($dataname)
+
+    public function delete($id)
     {
-        $data = new ModelBarang($this->db_hostname, $this->db_username, $this->db_password, $this->db_database);
-
-        // id barang
-        $nextIDBarang = "SELECT id_barang FROM barang ORDER BY id_barang DESC LIMIT 1";
-        $result = mysqli_query($data, $nextIDBarang);
-        if($result)
-        {
-            $row = mysqli_fetch_assoc($result);
-            if($row)
-            {
-                $lasID  = $row['id_barang'];
-                $nextID = 'IDBRG' . ((int)substr($lasID, 5) + 1);
-            }
-            else {
-                $nextID = 'IDBRG1';
-            }
-        }
-        else {
-            $nextID = 'IDBRG1';
-        }
-
-        $query = "SELECT * FROM barang WHERE id_barang = '$nextID'";
+        $query = "DELETE FROM barang WHERE id_barang = :id_barang";
         $statement = $this->connect->prepare($query);
 
-        $statement->bindParam($nextID, $dataname['id_barang']);
-        $statement->execute();
-
-        $fetchData = $statement->fetch(PDO::FETCH_ASSOC);
-        return $fetchData;
-    }
-
-    public function delete($dataname)
-    {
-        $data = new ModelBarang($this->db_hostname, $this->db_username, $this->db_password, $this->db_database);
-
-        // id barang
-        $nextIDBarang = "SELECT id_barang FROM barang ORDER BY id_barang DESC LIMIT 1";
-        $result = mysqli_query($data, $nextIDBarang);
-        if($result)
-        {
-            $row = mysqli_fetch_assoc($result);
-            if($row)
-            {
-                $lasID  = $row['id_barang'];
-                $nextID = 'IDBRG' . ((int)substr($lasID, 5) + 1);
-            }
-            else {
-                $nextID = 'IDBRG1';
-            }
-        }
-        else {
-            $nextID = 'IDBRG1';
-        }
-
-        $query = "DELETE FROM barang WHERE id_barang = '$nextID'";
-        $statement = $this->connect->prepare($query);
-        $statement->bindParam($nextID, $dataname['id_barang']);
+        $statement->bindParam(':id_barang', $id);
 
         if($statement->execute())
         {
             return true;
         }
         else {
+            var_dump($statement->errorInfo());
             return false;
         }
     }

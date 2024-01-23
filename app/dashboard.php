@@ -1,23 +1,3 @@
-<?php
-
-// use MainAuthMiddleware\MainAuthMiddleware;
-
-// require_once('../utils/MainAuthMiddleware.php');
-require_once('../configs/config.php');
-
-// session_start();
-
-// Validasi dan ambil data pengguna dari database
-// $sql_user = "SELECT * FROM auth_users";
-// $query_user = mysqli_query($connect, $sql_user);
-
-// session_start();
-
-// MainAuthMiddleware::MainCheck();
-
-
-?>
-
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -117,6 +97,17 @@ require_once('../configs/config.php');
           </div>
         </nav>
 
+        <!-- script php -->
+        <?php 
+        
+        require('../models/ModelBarang.php');
+
+        $database = new ModelBarang("localhost", "root", "", "todo-php");
+        $datas = $database->index();
+
+        ?>
+        <!-- end of scipt php -->
+
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
           <h2>Daftar Barang (品のリスト)</h2>
           <hr>
@@ -125,21 +116,28 @@ require_once('../configs/config.php');
               <thead>
                 <tr>
                   <th>#</th>
+                  <th>ID Barang</th>
                   <th>Nama Barang</th>
                   <th>Kategori Barang</th>
+                  <th>Status Barang</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
+                <?php $i = 1; ?>
+                <?php foreach($datas as $data) : ?>
                 <tr>
-                  <td>1,001</td>
-                  <td>Lorem</td>
-                  <td>ipsum</td>
+                  <td><?php print $i++; ?></td>
+                  <td><?php print $data['id_barang']; ?></td>
+                  <td><?php print $data['nama_barang']; ?></td>
+                  <td><?php print $data['kategori_barang']; ?></td>
+                  <td><?php print $data['status']; ?></td>
 
                   <td>
-                    <a href="../app/src/DetailBarang.php" class="btn btn-info" style="border-radius: 3px; color: white;">Detail</a>
+                    <a href="../app/src/DetailBarang.php?id=<?php print $data['id_barang']; ?>" class="btn btn-info" style="border-radius: 3px; color: white;">Detail</a>
                   </td>
                 </tr>
+                <?php endforeach; ?>
               </tbody>
             </table>
           </div>

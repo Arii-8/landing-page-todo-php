@@ -76,13 +76,13 @@
             </h6>
             <ul class="nav flex-column mb-2">
               <li class="nav-item">
-                <a class="nav-link" href="../index.php">
+                <a class="nav-link" href="../../index.php">
                   <span data-feather="file-text"></span>
                   Halaman Home(メインページ) 
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="../about_bandung.php">
+                <a class="nav-link" href="../../about_bandung.php">
                   <span data-feather="file-text"></span>
                   Bandung Photo (バンドンの写真)
                 </a>
@@ -97,6 +97,17 @@
           </div>
         </nav>
 
+        <!-- script php -->
+        <?php 
+        
+        require('../../models/ModelBarang.php');
+
+        $database = new ModelBarang("localhost", "root", "", "todo-php");
+        $datas = $database->index();
+
+        ?>
+        <!-- end of scipt php -->
+
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
           <h2>Daftar Barang (品のリスト)</h2>
           <hr>
@@ -105,22 +116,29 @@
               <thead>
                 <tr>
                   <th>#</th>
+                  <th>ID Barang</th>
                   <th>Nama Barang</th>
                   <th>Kategori Barang</th>
+                  <th>Status Barang</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
+              <?php $i = 1; ?>
+              <?php foreach($datas as $data) : ?>
                 <tr>
-                  <td>1,001</td>
-                  <td>Lorem</td>
-                  <td>ipsum</td>
+                  <td><?php print $i++; ?></td>
+                  <td><?php print $data['id_barang']; ?></td>
+                  <td><?php print $data['nama_barang']; ?></td>
+                  <td><?php print $data['kategori_barang']; ?></td>
+                  <td><?php print $data['status']; ?></td>
 
                   <td>
-                    <a href="EditBarang.php" class="btn btn-warning" style="border-radius: 3px; color: white;">Edit</a>
-                    <a href="" onclick="alert('Data is Delete Forever');" class="btn btn-danger" style="border-radius: 3px; color: white;">Delete</a>
+                    <a href="EditBarang.php?id=<?php print $data['id_barang']; ?>" class="btn btn-warning" style="border-radius: 3px; color: white;">Edit</a>
+                    <a href="ProcessDeleteBarang.php?id=<?php print $data['id_barang'] ?>" onclick="return confirm('Hapus data?')" class="btn btn-danger" style="border-radius: 3px; color: white;">Delete</a>
                   </td>
                 </tr>
+                <?php endforeach; ?>
               </tbody>
             </table>
           </div>

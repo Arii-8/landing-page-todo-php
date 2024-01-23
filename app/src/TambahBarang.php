@@ -102,7 +102,7 @@
           <hr>
           <div class="table-responsive">
             
-          <form action="" method="post" id="text-editor" enctype="multipart/form-data">
+          <form action="ProcessTambahBarang.php" method="post" id="text-editor" enctype="multipart/form-data">
             <div class="form-group" style="margin-top: 20px;">
                 <label for="nama_barang">Nama Barang</label>
                 <input type="text" name="nama_barang" class="form-control" placeholder="Nama Barang" required>
